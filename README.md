@@ -37,4 +37,5 @@ NOTAS IMPORTANTES:
 - El proyecto lastimosamente no pudo ser terminado en su totalidad con backend y frontend debido
 - Se cubrió la mayoría de aspectos requeridos en el reto para el frontend
 - Se cuvbrieron todsos los aspectos solicitados en el reto para el backend
+- Se agrega un video demo de lo que se ha realizado
 
