@@ -20,6 +20,7 @@ Proyecto reto para kruger
 - Uso de Login con redes sociales: Google y Facebook
 - Uso de aseguramiento de endpoint por medio de roles
 - Uso de JWT firmado para autorizaciones
+- Se Agrega un DockerFile para que sea mucho más facil levantar el backend
 
 4. proyecto inventory-ui: el cual  es el frontend realizado con angular 12 el cual tiene las siguientes caracteristicas
 - Framework de JS Angular 12
