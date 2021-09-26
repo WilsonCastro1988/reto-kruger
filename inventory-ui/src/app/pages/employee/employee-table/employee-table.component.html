@@ -1,0 +1,158 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedTipoPlan()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedEmployeeDto || !selectedEmployeeDto.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                  class="p-button-sm p-button-outlined p-button-success p-mr-2" pTooltip="XLS"
+                  tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                  class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF"
+                  tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="employeeDtos" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['employeevDni','employeevName','employeevLastname','employeedBirthDate','employeevAdrress','employeevMail','employeevPhone','employeebActive']"
+               responsiveLayout="scroll"
+               [(selection)]="selectedEmployeeDto" [rowHover]="true" dataKey="employeevDni"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="flex justify-content-between">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash"
+                    (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            <label>Employee LIST</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm"
+                           (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General"/>
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="employeevDni">DNI
+              <p-sortIcon field="employeevDni"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeevName">Name
+              <p-sortIcon field="employeevName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeevLastname">Last Name
+              <p-sortIcon field="employeevLastname"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeedBirthDate">Birth Date
+              <p-sortIcon field="employeedBirthDate"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeevAdrress">Address
+              <p-sortIcon field="employeevAdrress"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeevMail">Email
+              <p-sortIcon field="employeevMail"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeevPhone">Phone
+              <p-sortIcon field="employeevPhone"></p-sortIcon>
+            </th>
+            <th pSortableColumn="employeebActive">Active
+              <p-sortIcon field="employeebActive"></p-sortIcon>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>
+              <div class="p-d-flex p-jc-between p-ai-center">
+                <p-columnFilter type="text" field="employeevDni"></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeevName"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeevLastname"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeedBirthDate"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeevAdrress"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeevMail"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeevPhone"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="employeebActive"></p-columnFilter>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employeeDto>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="employeeDto"></p-tableCheckbox>
+            </td>
+            <td>{{employeeDto.employeevDni}}</td>
+            <td>{{employeeDto.employeevName}}</td>
+            <td>{{employeeDto.employeevLastname}}</td>
+            <td>{{employeeDto.employeedBirthDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{employeeDto.employeevAdrress}}</td>
+            <td>{{employeeDto.employeevMail}}</td>
+            <td>{{employeeDto.employeevPhone}}</td>
+            <td>{{employeeDto.employeebActive}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil"
+                      class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editTipoPlan(employeeDto)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash"
+                      class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteEmployee(employeeDto)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            In total there are {{employeeDtos ? employeeDtos.length : 0 }} TipoPlans.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+<p-dialog [(visible)]="tipoPlanDialog" [style]="{width: '450px'}" header="TipoPlan Details" [modal]="true"
+          styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Nombre Estado Plan</label>
+      <input type="text" pInputText id="name" [(ngModel)]="employeeDto.employeevName" required autofocus/>
+      <small class="p-error" *ngIf="submitted && !employeeDto.employeevName">Name is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea id="description" pInputTextarea [(ngModel)]="employeeDto.employeevLastname" required rows="3"
+                cols="20"></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

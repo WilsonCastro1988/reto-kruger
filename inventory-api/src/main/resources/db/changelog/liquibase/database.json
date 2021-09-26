@@ -1,0 +1,14 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "classpath:liquibase/dbBaseInventory-core.sql"
+      }      
+    },
+	{
+      "include": {
+        "file": "classpath:liquibase/dbBaseInventory-public.sql"
+      }      
+    }
+  ]
+}

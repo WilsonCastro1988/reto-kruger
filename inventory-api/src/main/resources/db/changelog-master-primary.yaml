@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: publicInventory
+      author: wilson.castro@uisek.edu.ec
+      changes:
+        - sqlFile:
+            dbms: sqlserver
+            encoding: utf8
+            endDelimiter: \n/\s*\n|\n/\s*$
+            path: changelog/liquibase/dbBaseInventory.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
